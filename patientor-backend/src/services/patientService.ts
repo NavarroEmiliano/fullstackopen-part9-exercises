@@ -20,15 +20,10 @@ const getNonSensitivePatiens = ():NonSensitivePatientData[] => {
   ));
 };
 
-const addPatient = (object:NewPatientEntry):Patient => {
-  console.log(object);
+const addPatient = (entry:NewPatientEntry):Patient => {
   const newPatientEntry:Patient = {
     id: uuid(),
-    name: object.name,
-    dateOfBirth: object.dateOfBirth,
-    ssn:object.ssn,
-    gender:object.gender,
-    occupation:object.occupation
+    ...entry
   };
 
   patients.push(newPatientEntry);
