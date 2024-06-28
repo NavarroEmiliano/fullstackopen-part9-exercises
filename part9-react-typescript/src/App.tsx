@@ -1,3 +1,5 @@
+import Header from './components/Header'
+
 function App() {
   const courseName = 'Half Stack application development'
 
@@ -14,7 +16,7 @@ function App() {
 
   return (
     <div>
-      <h1>{courseName}</h1>
+      <Header name={courseName} />
       <p>
         {courseParts[0].name} {courseParts[0].exerciseCount}
       </p>
