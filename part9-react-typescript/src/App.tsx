@@ -1,3 +1,4 @@
+import Content from './components/Content'
 import Header from './components/Header'
 
 function App() {
@@ -17,15 +18,7 @@ function App() {
   return (
     <div>
       <Header name={courseName} />
-      <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
-      </p>
+      <Content courseParts={courseParts}/>
       <p>Number of exercises {totalExercises}</p>
     </div>
   )
