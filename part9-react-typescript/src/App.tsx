@@ -8,22 +8,28 @@ interface CoursePartBase {
 }
 
 interface CoursePartBasic extends CoursePartBase {
-  description:string;
+  description: string
   kind: 'basic'
 }
 
 interface CoursePartGroup extends CoursePartBase {
-  groupProjectCount: number;
-  kind:'group'
+  groupProjectCount: number
+  kind: 'group'
 }
 
-interface CoursePartBackground extends CoursePartBase{
+interface CoursePartBackground extends CoursePartBase {
   description: string
   backgroundMaterial: string
   kind: 'background'
 }
 
 type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground
+
+const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union menber: ${JSON.stringify(value)}`
+  )
+}
 
 const App = () => {
   const courseName = 'Half Stack application development'
@@ -56,6 +62,22 @@ const App = () => {
       kind: 'background'
     }
   ]
+
+  courseParts.forEach(part => {
+    switch (part.kind) {
+      case 'basic':
+        console.log(part.name, part.description, part.exerciseCount)
+        break
+      case 'group':
+        console.log(part.name, part.exerciseCount, part.groupProjectCount)
+        break
+      case 'background':
+        console.log(part.name, part.description, part.backgroundMaterial)
+        break
+      default:
+        return assertNever(part)
+    }
+  })
 
   const totalExercises = courseParts.reduce(
     (sum, part) => sum + part.exerciseCount,
