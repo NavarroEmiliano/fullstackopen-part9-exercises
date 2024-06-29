@@ -2,29 +2,28 @@ import Content from './components/Content'
 import Header from './components/Header'
 import Total from './components/Total'
 
-interface coursePartBasic {
+interface CoursePartBase {
   name: string
   exerciseCount: number
-  description: string
+}
+
+interface CoursePartBasic extends CoursePartBase {
+  description:string;
   kind: 'basic'
 }
 
-interface CoursePartGroup {
-  name: string
-  exerciseCount: number
-  groupProjectCount: number
-  kind: 'group'
+interface CoursePartGroup extends CoursePartBase {
+  groupProjectCount: number;
+  kind:'group'
 }
 
-interface CoursePartBackground {
-  name: string
-  exerciseCount: number
+interface CoursePartBackground extends CoursePartBase{
   description: string
   backgroundMaterial: string
   kind: 'background'
 }
 
-type CoursePart = coursePartBasic | CoursePartGroup | CoursePartBackground
+type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground
 
 const App = () => {
   const courseName = 'Half Stack application development'
