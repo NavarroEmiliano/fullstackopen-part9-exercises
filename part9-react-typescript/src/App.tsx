@@ -1,38 +1,45 @@
-import Content from './components/Content'
-import Header from './components/Header'
-import Total from './components/Total'
+import Content from './components/Content';
+import Header from './components/Header';
+import Total from './components/Total';
 
 interface CoursePartBase {
-  name: string
-  exerciseCount: number
+  name: string;
+  exerciseCount: number;
 }
 
-interface CoursePartBasic extends CoursePartBase {
-  description: string
-  kind: 'basic'
+interface CourseDescription extends CoursePartBase {
+  description: string;
+}
+
+interface CourseRequeriments extends CourseDescription {
+  requeriments: string[];
+}
+interface CoursePartBasic extends CourseDescription {
+  kind: 'basic';
 }
 
 interface CoursePartGroup extends CoursePartBase {
-  groupProjectCount: number
-  kind: 'group'
+  groupProjectCount: number;
+  kind: 'group';
 }
 
-interface CoursePartBackground extends CoursePartBase {
-  description: string
-  backgroundMaterial: string
-  kind: 'background'
+interface CoursePartBackground extends CourseDescription {
+  backgroundMaterial: string;
+  kind: 'background';
 }
 
-type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground
-
-const assertNever = (value: never): never => {
-  throw new Error(
-    `Unhandled discriminated union menber: ${JSON.stringify(value)}`
-  )
+interface CoursePartSpecial extends CourseRequeriments {
+  kind: 'special';
 }
+
+export type CoursePart =
+  | CoursePartBasic
+  | CoursePartGroup
+  | CoursePartBackground
+  | CoursePartSpecial;
 
 const App = () => {
-  const courseName = 'Half Stack application development'
+  const courseName = 'Half Stack application development';
 
   const courseParts: CoursePart[] = [
     {
@@ -60,29 +67,20 @@ const App = () => {
       backgroundMaterial:
         'http://type-level-typescript.com/template-literal-types',
       kind: 'background'
+    },
+    {
+      name: 'Backend development',
+      exerciseCount: 21,
+      description: 'Typing the backend',
+      requeriments: ['nodejs', 'jest'],
+      kind: 'special'
     }
-  ]
-
-  courseParts.forEach(part => {
-    switch (part.kind) {
-      case 'basic':
-        console.log(part.name, part.description, part.exerciseCount)
-        break
-      case 'group':
-        console.log(part.name, part.exerciseCount, part.groupProjectCount)
-        break
-      case 'background':
-        console.log(part.name, part.description, part.backgroundMaterial)
-        break
-      default:
-        return assertNever(part)
-    }
-  })
+  ];
 
   const totalExercises = courseParts.reduce(
     (sum, part) => sum + part.exerciseCount,
     0
-  )
+  );
 
   return (
     <div>
@@ -90,7 +88,7 @@ const App = () => {
       <Content courseParts={courseParts} />
       <Total totalExercises={totalExercises} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

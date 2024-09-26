@@ -3,7 +3,7 @@ type Props = {
 }
 
 const Total = (props: Props) => {
-  return <div>{props.totalExercises}</div>
+  return <div>Number of exercises: {props.totalExercises}</div>
 }
 
 export default Total

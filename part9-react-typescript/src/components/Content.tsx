@@ -1,26 +1,18 @@
-interface CoursePart {
-  name: String
-  exerciseCount: number
-}
+import Part from './Part';
+import { CoursePart } from '../App';
 
 type Props = {
-  courseParts: CoursePart[]
-}
+  courseParts: CoursePart[];
+};
 
 const Content = (props: Props) => {
   return (
     <main>
-      <p>
-        {props.courseParts[0].name} {props.courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {props.courseParts[1].name} {props.courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {props.courseParts[2].name} {props.courseParts[2].exerciseCount}
-      </p>
+      {props.courseParts.map((course: CoursePart) => (
+        <Part coursePart={course} />
+      ))}
     </main>
-  )
-}
+  );
+};
 
-export default Content
+export default Content;
